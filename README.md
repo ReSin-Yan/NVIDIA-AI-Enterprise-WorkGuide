@@ -53,12 +53,32 @@ NVIDIA AI Enterprise 主要分成兩個部分
 
 **假設Tanzu已經安裝完成**  
 
+
 **並且能正常配置帶有vGPU的VM**  
 [vGPU quick start guide](https://docs.nvidia.com/grid/latest/grid-software-quick-start-guide/index.html "link")  
 
 **接下來設定會著重在環境設定**  
 
 #### NVIDIA-AI-Enterprise Tanzu Part  
+
+[設定步驟參考文件](https://docs.nvidia.com/ai-enterprise/deployment-guide/dg-vsphere-tanzu.html "link")  
+參考到設定好虛擬機器類別就好  
+後面設定包含yaml都是錯誤的(會需要參考到另外一篇文章進行設定)  
+
+Tanzu的版本是vSphere with Tanzu 而非 Kubernetes with Tanzu  
+兩者是不一樣的架構  
+目前只支援vSphere with Tanzu  
+
+Tanzu部分需要設定的地方不多  
+主要著重在`vmClass`的設定  
+相較於舊版7.0.2  
+7.0.3新增了一條`PCIE裝置`  
+透過這種方式新增一種vmClass  
+讓在建立的時候配置好  
+
+以下是參考流程  
+
+1.
 
 #### NVIDIA-AI-Enterprise NVIDIA Part  
 
