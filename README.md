@@ -24,6 +24,28 @@ NVIDIA AI Enterprise 是提供人工智慧與資料分析軟體的端對端、�
 NVIDIA AI Enterprise 主要分成兩個部分  
 兩個部份分別安裝，在安裝的時候也需要分頭進行安裝  
 
+硬體配置  
+ | 名稱 | 角色  |
+|-------|-------|
+| 伺服器 | PowerEdge R740 |  
+| 卡片 | NVIDIA A100 |  
+| CPU | Intel(R) Xeon(R) Silver 4114 CPU @ 2.20GHz |  
+| RAM | 256GB |  
+| DISK | Total 1TB wihh Raid 0 |  
+| 網卡 | 最少兩張(需要兩個網段) |  
+
+軟體體配置  
+ | 名稱 | 角色  |
+|-------|-------|
+| vSphere | 7.0.3 |  
+| vCenter | 7.0.3 |  
+| NVAIE | 1.1 |  
+| ESXi GPU Driver | 470.63 |  
+
+
+這邊假設Tanzu部分已經安裝完成  
+
+
 #### NVIDIA-AI-Enterprise Tanzu Part  
 
 #### NVIDIA-AI-Enterprise NVIDIA Part  
