@@ -110,12 +110,63 @@ GPU記憶體測試起來感覺有BUG，沒辦法設定10 20 40的數字(Demo環�
 
 10.登入到supvisorCluster的namespace  
 ```
-kubectl-vsphere login --vsphere-username administrator@vsphere.local --server=x.x.x.x --insecure-skip-tls-verify  
+kubectl-vsphere login --vsphere-username administrator@vsphere.local --server=x.x.x.x --insecure-skip-tls-verify 
 ```
 11.切換到supvisorCluster的namespace  
 ```
 kubectl config use-context namespace-NAME  
 ```
+12. 建立TKC  
+
+根據情況修改`name` `namespace` `vmClass` `storageClass` `defaultClass` 的名稱  
+```
+apiVersion: run.tanzu.vmware.com/v1alpha2
+kind: TanzuKubernetesCluster
+metadata:
+   #cluster name
+   name: tkgs-cluster-gpu-a100
+   #target vsphere namespace
+   namespace: demo
+spec:
+   topology:
+     controlPlane:
+       replicas: 1
+       #storage class for control plane nodes
+       #use `kubectl describe storageclasses`
+       #to get available pvcs
+       storageClass: nvaiestorage
+       vmClass: best-effort-small
+       #TKR NAME for Ubuntu ova supporting GPU
+       tkr:
+         reference:
+           name: v1.20.8---vmware.1-tkg.2
+     nodePools:
+     - name: nodepool-a100-primary
+       replicas: 1
+       storageClass: nvaiestorage
+       #custom VM class for vGPU
+       vmClass: nvaie
+       #TKR NAME for Ubuntu ova supporting GPU
+       tkr:
+         reference:
+           name: v1.20.8---vmware.1-tkg.2
+   settings:
+     storage:
+       defaultClass: nvaiestorage
+     network:
+       cni:
+        name: antrea
+       services:
+        cidrBlocks: ["198.51.100.0/12"]
+       pods:
+        cidrBlocks: ["192.0.2.0/16"]
+       serviceDomain: managedcluster.local
+```
+
+```
+kubectl apply -f createtkc.yaml
+```
+
 
 #### NVIDIA-AI-Enterprise NVIDIA Part  
 
