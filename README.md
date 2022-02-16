@@ -16,6 +16,7 @@ NVIDIA AI Enterprise 是提供人工智慧與資料分析軟體的端對端、�
 
 第二種為容器模式  
 透過Tanzu來進行底層環境的部屬，搭配GPU來讓建立出來的環境都有GPU的功能  
+搭配版本為vSphere with Tanzu 而非 Tanzu Kubernetes Grid  
 本文會著重於第二種方式來進行介紹  
 圖片  
 
@@ -50,9 +51,11 @@ NVIDIA AI Enterprise 主要分成兩個部分
 
 
 
-**假設Tanzu以及ESXi GPU Driver部分已經安裝完成**  
+**假設Tanzu已經安裝完成**  
+
 **並且能正常配置帶有vGPU的VM**  
 [vGPU quick start guide](https://docs.nvidia.com/grid/latest/grid-software-quick-start-guide/index.html "link")  
+
 **接下來設定會著重在環境設定**  
 
 #### NVIDIA-AI-Enterprise Tanzu Part  
