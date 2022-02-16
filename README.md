@@ -52,6 +52,7 @@ NVIDIA AI Enterprise 主要分成兩個部分
 
 **假設Tanzu以及ESXi GPU Driver部分已經安裝完成**  
 **並且能正常配置帶有vGPU的VM**  
+[vGPU quick start guide](https://docs.nvidia.com/grid/latest/grid-software-quick-start-guide/index.html "link")  
 **接下來設定會著重在環境設定**  
 
 #### NVIDIA-AI-Enterprise Tanzu Part  
