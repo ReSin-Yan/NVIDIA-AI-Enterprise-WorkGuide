@@ -34,13 +34,18 @@ NVIDIA AI Enterprise 主要分成兩個部分
 | DISK | Total 1TB wihh Raid 0 |  
 | 網卡 | 最少兩張(需要兩個網段) |  
 
+**以上僅為我測試環境規格，在建立過程中因為資源不足的  
+
 軟體體配置  
  | 名稱 | 角色  |
 |-------|-------|
 | vSphere | 7.0.3 |  
 | vCenter | 7.0.3 |  
 | NVAIE | 1.1 |  
+| NSX-T advanced loadbalance | 1.1 |  
 | ESXi GPU Driver | 470.63 |  
+| NVIDIA Liccense | 1.0.0 |  
+
 
 
 這邊假設Tanzu部分已經安裝完成  
