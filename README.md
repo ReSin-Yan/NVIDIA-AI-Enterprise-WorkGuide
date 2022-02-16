@@ -29,7 +29,7 @@ NVIDIA AI Enterprise 主要分成兩個部分
 #### NVIDIA-AI-Enterprise NVIDIA Part  
 
 
-### Tips  
+### Tips   
 
 由於A100本身只支援CUDA11版本之後  
 所以在跑測試執行的時候需要使用CUDA 11版本之後來進行測試  
