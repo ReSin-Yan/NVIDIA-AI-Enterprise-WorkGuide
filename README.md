@@ -78,7 +78,37 @@ Tanzu部分需要設定的地方不多
 
 以下是參考流程  
 
-1.
+1.進入已經起好vsphere with 的環境中，點選`工作負載管理`  
+![img](https://github.com/ReSin-Yan/NVIDIA-AI-Enterprise-WorkGuide/blob/main/img/1.PNG)  
+
+2.點選`服務` > `虛擬機器服務` > `管理`  
+![img](https://github.com/ReSin-Yan/NVIDIA-AI-Enterprise-WorkGuide/blob/main/img/2.PNG)  
+
+3.點選`虛擬機器類別` > `建立虛擬機器類別`  
+![img](https://github.com/ReSin-Yan/NVIDIA-AI-Enterprise-WorkGuide/blob/main/img/3.PNG)  
+
+4.設定包含`名稱``vCPU數量``CPU資源保留``記憶體大小` PCI裝置選擇`是` 開啟PCI裝置功能會自動將記憶體保留變成100趴   
+![img](https://github.com/ReSin-Yan/NVIDIA-AI-Enterprise-WorkGuide/blob/main/img/4.PNG)  
+
+5.點選`新增PCI裝置` > `NVIDIA vGPU`  如果環境內包含網路卡SmartNIC則額外再選擇動態DirectPath IO    
+![img](https://github.com/ReSin-Yan/NVIDIA-AI-Enterprise-WorkGuide/blob/main/img/5.PNG)  
+
+6.選擇`卡片型號`  `GPU共用` `GPU模式` `GPU記憶體` `vGPU數目`  
+其中卡片型號為目前可認得到的卡片(有裝GPU Driver並且有配置好基本設定)  
+GPU共用分為兩種，傳統vGPU方式跟MIG模式，如果一開始在底層配置好了MIG則選擇`多執行個體GPU共用`，如果是沒有配置MIG則選擇`時間共用`  
+GPU記憶體測試起來感覺有BUG，沒辦法設定10 20 40的數字(Demo環境設定5)  
+![img](https://github.com/ReSin-Yan/NVIDIA-AI-Enterprise-WorkGuide/blob/main/img/6.PNG)  
+
+7.點選`確認`    
+![img](https://github.com/ReSin-Yan/NVIDIA-AI-Enterprise-WorkGuide/blob/main/img/7.PNG)  
+
+8.進到命名空間配置虛擬機器服務，`虛擬機器服務`> `管理虛擬機器類別`   
+![img](https://github.com/ReSin-Yan/NVIDIA-AI-Enterprise-WorkGuide/blob/main/img/8.PNG)  
+
+9.將剛剛建立的類別新增至此命名空間   
+![img](https://github.com/ReSin-Yan/NVIDIA-AI-Enterprise-WorkGuide/blob/main/img/9.PNG)  
+
+
 
 #### NVIDIA-AI-Enterprise NVIDIA Part  
 
