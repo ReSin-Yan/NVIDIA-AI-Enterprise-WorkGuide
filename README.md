@@ -19,8 +19,19 @@ NVIDIA AI Enterprise 是提供人工智慧與資料分析軟體的端對端、�
 本文會著重於第二種方式來進行介紹  
 圖片  
 
+### 安裝步驟  
+
+NVIDIA AI Enterprise 主要分成兩個部分  
+兩個部份分別安裝，在安裝的時候也需要分頭進行安裝  
+
+#### NVIDIA-AI-Enterprise Tanzu Part  
+
+#### NVIDIA-AI-Enterprise NVIDIA Part  
 
 
-### NVIDIA-AI-Enterprise Tanzu Part  
+### Tips  
 
-### NVIDIA-AI-Enterprise NVIDIA Part  
+由於A100本身只支援CUDA11版本之後  
+所以在跑測試執行的時候需要使用CUDA 11版本之後來進行測試  
+用CUDA10會整個環境卡死，GPU資源無法釋放  
+
