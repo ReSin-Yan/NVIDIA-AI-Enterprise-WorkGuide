@@ -108,7 +108,14 @@ GPU記憶體測試起來感覺有BUG，沒辦法設定10 20 40的數字(Demo環�
 9.將剛剛建立的類別新增至此命名空間   
 ![img](https://github.com/ReSin-Yan/NVIDIA-AI-Enterprise-WorkGuide/blob/main/img/9.PNG)  
 
-
+10.登入到supvisorCluster的namespace  
+```
+kubectl-vsphere login --vsphere-username administrator@vsphere.local --server=x.x.x.x --insecure-skip-tls-verify  
+```
+11.切換到supvisorCluster的namespace  
+```
+kubectl config use-context namespace-NAME  
+```
 
 #### NVIDIA-AI-Enterprise NVIDIA Part  
 
