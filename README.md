@@ -47,6 +47,7 @@ NVIDIA AI Enterprise 主要分成兩個部分
 | NSX-T advanced loadbalance | 1.1 |  
 | ESXi GPU Driver | 470.63 |  
 | NVIDIA Liccense | 1.0.0 |  
+| helm | >3.0 |  
 
 
 
@@ -54,7 +55,7 @@ NVIDIA AI Enterprise 主要分成兩個部分
 **假設Tanzu已經安裝完成**  
 
 
-**並且能正常配置帶有vGPU的VM**  
+**並且能正常配置帶有vGPU的VM(License sever 也配置完成)**  
 [vGPU quick start guide](https://docs.nvidia.com/grid/latest/grid-software-quick-start-guide/index.html "link")  
 
 **接下來設定會著重在環境設定**  
@@ -167,11 +168,99 @@ spec:
 kubectl apply -f createtkc.yaml
 ```
 
+13.登入到TKC當中  
+```
+kubectl-vsphere login --vsphere-username administrator@vsphere.local --server=x.x.x.x --insecure-skip-tls-verify --tanzu-kubernetes-cluster-name tkgs-cluster-gpu-a100
+```
+
+14.切換到supvisorCluster的namespace  
+```
+kubectl config use-context tkgs-cluster-gpu-a100    
+```
 
 #### NVIDIA-AI-Enterprise NVIDIA Part  
 
+[NVAIE GPU operator](https://docs.nvidia.com/datacenter/cloud-native/gpu-operator/install-gpu-operator-nvaie.html "link")  
+NVIDIA 會使用一項叫做GPU-opeartor的技術  
+將GPU驅動使用容器的模式來讓node使用  
+vGPU本身的驅動程式是特別版本的  
+所以需要`註冊好NVAIE`的帳號(在NGC上面)  
+再利用帳號取得對應的docker images 以及helm chart(皆從NGC上面下載，並且需要註冊NVAIE才有)  
 
-### Tips   
+這邊假設沒有要設定smartNIC  
+
+1.建立`gpu-operator`的命名空間  
+
+```
+kubectl create namespace gpu-operator
+```
+
+2.建利空的vGPU授權設定檔案  
+
+```
+sudo touch gridd.conf
+```
+
+3.將NLS下載下來的授權修改名稱為client_configuration_token.tok  
+
+4.建立名為licensing-config的ConfigMap 
+
+```
+kubectl create configmap licensing-config -n gpu-operator --from-file=gridd.conf --from-file=<path>/client_configuration_token.tok
+```
+
+5.在gpu-operator這一個命名空間建立image pull secert(NGC帳號需要)   
+
+```
+export REGISTRY_SECRET_NAME=ngc-secret  
+export PRIVATE_REGISTRY=nvcr.io/nvaie  
+kubectl create secret docker-registry ${REGISTRY_SECRET_NAME} \
+    --docker-server=${PRIVATE_REGISTRY} \
+    --docker-username='$oauthtoken' \
+    --docker-password='<password>' \
+    --docker-email='<email-address>' \
+    -n gpu-operator
+```
+
+6.新增NVAIE的helm Chart到連線端  
+
+```
+helm repo add nvaie https://helm.ngc.nvidia.com/nvaie \
+  --username='$oauthtoken' --password='<password>' \
+  && helm repo update
+```
+
+7.安裝NVIDIA GPU Operator  
+
+```
+helm install --wait gpu-operator nvaie/gpu-operator-1-1 -n gpu-operator
+```
+
+#### NVIDIA-AI-Enterprise Demo  
+
+執行以下yaml檔案  
+```
+apiVersion: v1
+kind: Pod
+metadata:
+  name: cuda-vectoradd
+spec:
+  restartPolicy: OnFailure
+  containers:
+  - name: cuda-vectoradd
+    image: "nvidia/samples:vectoradd-cuda11.2.1"
+    resources:
+      limits:
+         nvidia.com/gpu: 1
+```
+
+觀看執行logs  
+```
+kubectl logs cuda-vectoradd 
+```
+
+
+### Install and Demo Tips   
 
 由於A100本身只支援CUDA11版本之後  
 所以在跑測試執行的時候需要使用CUDA 11版本之後來進行測試  
