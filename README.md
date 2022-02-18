@@ -260,6 +260,57 @@ kubectl logs cuda-vectoradd
 ```
 
 
+
+
+執行以下yaml檔案  
+```
+apiVersion: v1
+kind: Service
+metadata:
+  name: jupyter
+  labels:
+    app: jupyter
+spec:
+  ports:
+  - port: 80
+    name: http
+    targetPort: 8888
+  selector:
+    app: jupyter
+  type: LoadBalancer
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jupyter-app
+  labels:
+    app: jupyter
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: jupyter
+  template:
+    metadata:
+      labels:
+        app: jupyter
+    spec:
+      containers:
+      - name: jupyter
+        image: nvcr.io/nvidia/tensorflow:22.01-tf2-py3
+        command: ["/bin/sh"]
+        args: ["-c","jupyter-lab --NotebookApp.token='' --ip=0.0.0.0 --port=8888 --allow-root"]
+        ports:
+        - containerPort: 8888
+          protocol: TCP
+        name: http
+        resources:
+          limits:
+            nvidia.com/gpu: 1
+
+```
+
+
 ### Install and Demo Tips   
 
 由於A100本身只支援CUDA11版本之後  
