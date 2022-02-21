@@ -143,14 +143,20 @@ spec:
            name: v1.20.8---vmware.1-tkg.2
      nodePools:
      - name: nodepool-a100-primary
-       replicas: 1
+       replicas: 2
        storageClass: nvaiestorage
        #custom VM class for vGPU
-       vmClass: nvaie
+       vmClass: a1005g
+       volumes:
+           - name: containerd
+             mountPath: /var/lib/containerd
+             capacity:
+               storage: 100Gi
        #TKR NAME for Ubuntu ova supporting GPU
        tkr:
          reference:
            name: v1.20.8---vmware.1-tkg.2
+-vmware.1-tkg.2
    settings:
      storage:
        defaultClass: nvaiestorage
