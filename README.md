@@ -41,7 +41,7 @@ NVIDIA AI Enterprise 主要分成兩個部分
 軟體配置  
  | 名稱 | 角色  |
 |-------|-------|
-| vSphere | 7.0.3 |  
+| vSphere enterprise plus | 7.0.3 |  
 | vCenter | 7.0.3 |  
 | NVAIE | 1.1 |  
 | NSX-T advanced loadbalance | 1.1 |  
