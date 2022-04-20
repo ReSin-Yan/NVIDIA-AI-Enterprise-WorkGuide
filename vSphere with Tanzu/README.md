@@ -1,3 +1,7 @@
+Last update: 2022/4/20  
+
+# NVIDIA-AI-Enterprise-WorkGuide  
+
 ### 安裝步驟  
 
 NVIDIA AI Enterprise 主要分成兩個部分  
